@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TokehKaret - Sistem Pencatatan & Kalkulator KKK Petani Karet</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js for Visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Custom Light Clean Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Mobile Backdrop Overlay -->
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+  <!-- ==================== 0. LANDING PAGE / INTRO VIEW ==================== -->
+  <div id="landing-view" class="landing-overlay">
+    <div class="landing-container">
+      
+      <!-- Top Landing Nav -->
+      <nav class="landing-header">
+        <div class="landing-brand">
+          <div class="landing-logo-wrap">
+            <img src="logo.png" alt="TokehKaret Logo" class="logo-img">
+          </div>
+          <div class="landing-brand-text">
+            <h2>TokehKaret</h2>
+            <p>Sistem Timbangan & Kalkulator KKK</p>
+          </div>
+        </div>
+        <div class="landing-nav-actions">
+          <button class="btn btn-outline btn-sm" id="btn-landing-login">
+            <i class="fa-solid fa-right-to-bracket"></i> Masuk
+          </button>
+          <button class="btn btn-primary btn-sm" id="btn-landing-register">
+            <i class="fa-solid fa-user-plus"></i> Buat Akun Baru
+          </button>
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+      <section class="landing-hero card">
+        <div class="hero-badge">
+          <i class="fa-solid fa-leaf text-green"></i> Aplikasi Digital Pengepul Karet
+        </div>
+        <h1>Pencatatan Hasil Panen & Kalkulator KKK Karet Modern</h1>
+        <p class="hero-desc">
+          Solusi terpadu bagi tokeh dan pengepul karet untuk mengkalkulasi Kadar Karet Kering (DRC) secara otomatis, 
+          mengelola saldo kasbon penyuplai, serta merekap transaksi timbangan harian dengan cepat dan akurat.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" id="btn-hero-login">
+            <i class="fa-solid fa-right-to-bracket"></i> Masuk ke Aplikasi
+          </button>
+          <button class="btn btn-secondary btn-lg" id="btn-hero-register">
+            <i class="fa-solid fa-user-plus"></i> Daftar Akun Tokeh
+          </button>
+        </div>
+      </section>
+
+      <!-- Feature Grid Section -->
+      <section class="landing-features">
+        <div class="features-title text-center">
+          <h3>Tujuan & Manfaat Utama Aplikasi</h3>
+          <p class="text-muted">Kemudahan pengelolaan usaha timbangan karet dalam satu genggaman</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card card">
+            <div class="feature-icon icon-green">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <h4>Hitung KKK (DRC) Otomatis</h4>
+            <p>Kalkulasi persentase Kadar Karet Kering secara langsung dari perbandingan berat basah dan berat kering hasil sampel.</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-icon icon-yellow">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <h4>Manajemen Petani & Kasbon</h4>
+            <p>Pencatatan data penyuplai karet dan pelunasan sisa saldo kasbon (pinjaman) yang terintegrasi di setiap penimbangan.</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-icon icon-emerald">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h4>Analitik Tonase Harian</h4>
+            <p>Pantau perkembangan volume pasokan karet basah vs kering serta distribusi kualitas KKK secara visual melalui grafik.</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-icon icon-dark">
+              <i class="fa-solid fa-print"></i>
+            </div>
+            <h4>Cetak Struk & Ekspor Laporan</h4>
+            <p>Cetak nota penimbangan thermal 58mm untuk transaksi langsung dan ekspor rekapitulasi bulanan per petani.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Landing Footer -->
+      <footer class="landing-footer text-center">
+        <p class="text-muted"><i class="fa-solid fa-shield-halved text-green"></i> Terproteksi & Didesain Khusus untuk Tokeh Karet</p>
+        <p class="margin-top" style="margin-top: 4px;"><small class="text-muted">by PT Sanak Projek. Tbk</small></p>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ==================== 1. LOGIN SCREEN VIEW ==================== -->
+  <div id="login-view" class="login-overlay hidden">
+    <div class="login-card">
+      <a href="#" id="link-login-back-home" class="link-back-home"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</a>
+      <div class="login-header">
+        <div class="brand-badge-large">
+          <img src="logo.png" alt="TokehKaret Logo" class="logo-img">
+        </div>
+        <h2>TokehKaret</h2>
+        <p>Aplikasi Pencatatan Panen & Kalkulator KKK Karet</p>
+      </div>
+
+      <form id="form-login" onsubmit="return false;">
+        <div id="login-error-msg" class="alert alert-danger hidden">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span>Username/Email atau Password salah! Mohon periksa kembali.</span>
+        </div>
+        <div class="form-group">
+          <label for="login-username"><i class="fa-solid fa-user"></i> Username / Email</label>
+          <input type="text" id="login-username" value="" placeholder="Masukkan username atau email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="login-password"><i class="fa-solid fa-lock"></i> PIN / Password</label>
+          <div class="password-toggle-wrap">
+            <input type="password" id="login-password" value="" placeholder="Masukkan PIN / Password" required>
+            <button type="button" class="btn-toggle-pw" id="btn-toggle-login-pw" title="Lihat/Sembunyikan Password">
+              <i class="fa-solid fa-eye" id="icon-login-pw"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="login-remember">
+          <label><input type="checkbox" id="remember-me" checked> Ingat Akun Saya</label>
+          <a href="#" id="link-go-to-register" class="text-green font-bold">Buat Akun Baru</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-login-submit">
+          <i class="fa-solid fa-right-to-bracket"></i> Masuk ke Sistem
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <p><i class="fa-solid fa-shield-halved"></i> Terproteksi & Digunakan oleh Tokeh / Pengepul Karet</p>
+        <p class="margin-top" style="margin-top:6px;"><small class="text-muted">by PT Sanak Projek. Tbk</small></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 2. HALAMAN PENDAFTARAN AKUN (REGISTER VIEW) ==================== -->
+  <div id="register-view" class="login-overlay hidden">
+    <div class="register-card">
+      <a href="#" id="link-register-back-home" class="link-back-home"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</a>
+      <div class="login-header">
+        <div class="brand-badge-large">
+          <img src="logo.png" alt="TokehKaret Logo" class="logo-img">
+        </div>
+        <h2>Pendaftaran <span>AKUN BARU</span></h2>
+        <p>Lengkapi formulir di bawah untuk mendaftar sebagai Tokeh Karet</p>
+      </div>
+
+      <form id="form-register-user" onsubmit="return false;">
+        <div class="form-group">
+          <label for="reg-fullname"><i class="fa-solid fa-id-card"></i> Nama Lengkap *</label>
+          <input type="text" id="reg-fullname" placeholder="Contoh: H. Ramli" required>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-resaddress"><i class="fa-solid fa-house"></i> Alamat Tempat Tinggal *</label>
+          <input type="text" id="reg-resaddress" placeholder="Contoh: Jl. Merdeka No. 45, Sekayu" required>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-storeaddress"><i class="fa-solid fa-store"></i> Alamat Usaha / Gudang *</label>
+          <input type="text" id="reg-storeaddress" placeholder="Contoh: Gudang Karet Km 12 Lintas Sumatera" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-phone"><i class="fa-solid fa-phone"></i> No. HP / WhatsApp *</label>
+            <input type="tel" id="reg-phone" placeholder="Contoh: 081234567890" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reg-email"><i class="fa-solid fa-envelope"></i> Email (Wajib Verifikasi) *</label>
+            <input type="email" id="reg-email" placeholder="Contoh: tokeh.ramli@gmail.com" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-username"><i class="fa-solid fa-user-tag"></i> Username *</label>
+            <input type="text" id="reg-username" placeholder="Contoh: tokeh_ramli" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reg-password"><i class="fa-solid fa-key"></i> Password *</label>
+            <div class="password-toggle-wrap">
+              <input type="password" id="reg-password" placeholder="Masukkan Password" required>
+              <button type="button" class="btn-toggle-pw" id="btn-toggle-reg-pw" title="Lihat/Sembunyikan Password">
+                <i class="fa-solid fa-eye" id="icon-reg-pw"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions-stack margin-top">
+          <button type="submit" class="btn btn-primary btn-block btn-lg">
+            <i class="fa-solid fa-user-check"></i> Daftar Akun Sekarang
+          </button>
+          
+          <div class="text-center margin-top">
+            <span class="text-muted">Sudah memiliki akun?</span>
+            <a href="#" id="link-go-to-login" class="text-green font-bold margin-left">Masuk di sini</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== 3. MAIN APPLICATION LAYOUT ==================== -->
+  <div id="app-view" class="app-layout hidden">
+    
+    <!-- Mobile Top Navigation Header -->
+    <header class="mobile-header no-print">
+      <button class="btn-hamburger" id="btn-mobile-menu" title="Buka Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="mobile-brand">
+        <div class="mobile-brand-icon">
+          <img src="logo.png" alt="TokehKaret Logo" class="logo-img">
+        </div>
+        <span>TokehKaret</span>
+      </div>
+      <button class="btn-icon text-green" id="btn-quick-timbang-mobile" title="Timbang Baru">
+        <i class="fa-solid fa-plus-circle fa-lg"></i>
+      </button>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="app-sidebar">
+      <button class="btn-collapse-sidebar no-print" id="btn-toggle-sidebar" title="Minimize / Expand Sidebar">
+        <i class="fa-solid fa-chevron-left" id="icon-sidebar-toggle"></i>
+      </button>
+
+      <div class="brand">
+        <div class="brand-icon">
+          <img src="logo.png" alt="TokehKaret Logo" class="logo-img">
+        </div>
+        <div class="brand-text">
+          <h2 id="brand-title-display">TokehKaret</h2>
+          <p id="brand-subtitle-display">Gudang H. Ramli</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="dashboard" title="Dashboard & Analitik">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard & Analitik</span>
+        </button>
+        <button class="nav-item" data-tab="transaction" title="Timbang & Hitung KKK">
+          <i class="fa-solid fa-scale-balanced"></i>
+          <span>Timbang & Hitung KKK</span>
+        </button>
+        <button class="nav-item" data-tab="farmers" title="Petani & Kasbon">
+          <i class="fa-solid fa-users"></i>
+          <span>Petani & Kasbon</span>
+        </button>
+        <button class="nav-item" data-tab="history" title="Riwayat Transaksi">
+          <i class="fa-solid fa-receipt"></i>
+          <span>Riwayat Transaksi</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="tokeh-profile">
+          <div class="avatar">
+            <i class="fa-solid fa-user-check"></i>
+          </div>
+          <div class="info">
+            <span class="name" id="user-display-name">H. Ramli (Tokeh)</span>
+            <span class="role" id="user-display-role">Pengepul Utama</span>
+          </div>
+          <button class="btn-icon" id="btn-open-edit-profile" title="Edit Profil & Password">
+            <i class="fa-solid fa-user-gear"></i>
+          </button>
+          <button class="btn-logout" id="btn-logout" title="Keluar / Logout">
+            <i class="fa-solid fa-power-off"></i>
+          </button>
+        </div>
+        <div class="sidebar-attribution text-center" style="margin-top: 10px; padding: 0 10px;">
+          <small class="text-muted" style="font-size: 10px;">by PT Sanak Projek. Tbk</small>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Header Bar -->
+      <header class="top-header">
+        <div class="header-title">
+          <h1 id="page-title">Dashboard & Analitik Pembelian</h1>
+          <p id="page-subtitle">Ringkasan tonase karet, grafik KKK, dan aktivitas transaksi tokeh</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-outline" id="btn-open-tutorial" title="Buka Panduan Tutorial">
+            <i class="fa-solid fa-graduation-cap text-green"></i> Panduan Tutorial
+          </button>
+          <button class="btn btn-outline" id="btn-open-price-matrix">
+            <i class="fa-solid fa-tags text-amber"></i> Atur Harga Jenis Karet
+          </button>
+          <button class="btn btn-primary btn-desktop-only" id="btn-quick-timbang">
+            <i class="fa-solid fa-plus"></i> Transaksi Baru
+          </button>
+        </div>
+      </header>
+
+      <!-- TAB 1: DASHBOARD & ANALITIK -->
+      <section id="tab-dashboard" class="tab-content active">
+        
+        <!-- Quick Prices Header Strip -->
+        <div class="price-strip-container margin-bottom">
+          <div class="price-strip-title"><i class="fa-solid fa-tags text-amber"></i> Harga Karet Kering Hari Ini:</div>
+          <div class="price-chips-grid">
+            <div class="price-chip">
+              <span class="chip-label">Bokar Cup Lump:</span>
+              <strong id="price-display-cup">Rp 23.000 /kg</strong>
+            </div>
+            <div class="price-chip">
+              <span class="chip-label">Lateks Cair:</span>
+              <strong id="price-display-lateks">Rp 18.000 /kg</strong>
+            </div>
+            <div class="price-chip">
+              <span class="chip-label">Slab / Balok:</span>
+              <strong id="price-display-slab">Rp 21.000 /kg</strong>
+            </div>
+            <div class="price-chip">
+              <span class="chip-label">Sheet Kering:</span>
+              <strong id="price-display-sheet">Rp 26.000 /kg</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Toolbar Section -->
+        <div class="filter-toolbar card">
+          <div class="toolbar-title">
+            <i class="fa-solid fa-filter text-green"></i>
+            <span>Filter Data Dashboard</span>
+          </div>
+          
+          <div class="filter-inputs">
+            <div class="filter-item">
+              <label><i class="fa-solid fa-user"></i> Petani / Pemasok:</label>
+              <select id="filter-dash-petani">
+                <option value="ALL">Semua Petani</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label><i class="fa-solid fa-percent"></i> Kadar KKK (DRC):</label>
+              <select id="filter-dash-kkk">
+                <option value="ALL">Semua KKK</option>
+                <option value="SUPER">Super (>60%)</option>
+                <option value="STANDAR">Standar (45% - 60%)</option>
+                <option value="BASAH">Basah (<45%)</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label><i class="fa-regular fa-calendar"></i> Periode Waktu:</label>
+              <select id="filter-dash-period">
+                <option value="7">7 Hari Terakhir</option>
+                <option value="30" selected>30 Hari Terakhir</option>
+                <option value="90">3 Bulan Terakhir</option>
+              </select>
+            </div>
+
+            <button class="btn btn-secondary btn-sm" id="btn-reset-filters">
+              <i class="fa-solid fa-rotate-left"></i> Reset Filter
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card card">
+            <div class="kpi-icon icon-green">
+              <i class="fa-solid fa-weight-hanging"></i>
+            </div>
+            <div class="kpi-details">
+              <span class="kpi-title">Total Karet Basah</span>
+              <h3 id="stat-total-basah">0 kg</h3>
+              <span class="kpi-sub green"><i class="fa-solid fa-arrow-trend-up"></i> Total Timbangan</span>
+            </div>
+          </div>
+
+          <div class="kpi-card card">
+            <div class="kpi-icon icon-emerald">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <div class="kpi-details">
+              <span class="kpi-title">Total Karet Kering (KKK)</span>
+              <h3 id="stat-total-kering">0 kg</h3>
+              <span class="kpi-sub green"><i class="fa-solid fa-droplet"></i> Bobot Bersih DRC</span>
+            </div>
+          </div>
+
+          <div class="kpi-card card">
+            <div class="kpi-icon icon-yellow">
+              <i class="fa-solid fa-percent"></i>
+            </div>
+            <div class="kpi-details">
+              <span class="kpi-title">Rata-Rata Kadar KKK</span>
+              <h3 id="stat-avg-kkk">0%</h3>
+              <span class="kpi-sub yellow" id="stat-kkk-badge"><i class="fa-solid fa-circle-check"></i> Kualitas Kebun</span>
+            </div>
+          </div>
+
+          <div class="kpi-card card">
+            <div class="kpi-icon icon-dark">
+              <i class="fa-solid fa-wallet"></i>
+            </div>
+            <div class="kpi-details">
+              <span class="kpi-title">Total Uang Pembelian</span>
+              <h3 id="stat-total-pembelian">Rp 0</h3>
+              <span class="kpi-sub gray"><i class="fa-solid fa-money-bill-wave"></i> Total Terbayar</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid Section -->
+        <div class="charts-grid">
+          <div class="chart-card card span-2">
+            <div class="chart-header">
+              <div>
+                <h3><i class="fa-solid fa-chart-column text-green"></i> Grafik Pembelian Karet (Kg Basah vs Kg Kering KKK)</h3>
+                <p>Perbandingan tonase timbangan basah dan bobot karet kering bersih yang dibeli</p>
+              </div>
+              <div class="chart-legend">
+                <span class="legend-item"><span class="dot basah"></span> Karet Basah</span>
+                <span class="legend-item"><span class="dot kering"></span> Karet Kering (KKK)</span>
+              </div>
+            </div>
+            <div class="chart-body">
+              <canvas id="chartPurchases"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card card">
+            <div class="chart-header">
+              <div>
+                <h3><i class="fa-solid fa-chart-pie text-yellow"></i> Distribusi Kualitas KKK (%)</h3>
+                <p>Proporsi tingkat kekeringan karet dari hasil timbang</p>
+              </div>
+            </div>
+            <div class="chart-body flex-center">
+              <canvas id="chartKkkDistribution"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card card span-2">
+            <div class="chart-header">
+              <div>
+                <h3><i class="fa-solid fa-chart-line text-green"></i> Tren Kadar Karet Kering (% KKK / DRC)</h3>
+                <p>Grafik fluktuasi rata-rata persentase KKK harian dari penimbangan</p>
+              </div>
+              <span class="badge-tag">Target KKK: 55% - 65%</span>
+            </div>
+            <div class="chart-body">
+              <canvas id="chartKkkTrend"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card card">
+            <div class="chart-header">
+              <div>
+                <h3><i class="fa-solid fa-award text-yellow"></i> Top Petani Penyuplai</h3>
+                <p>Volume pasokan karet kering terbanyak</p>
+              </div>
+            </div>
+            <div class="top-farmers-list" id="top-farmers-container">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- TAB 2: TRANSAKSI & KALKULATOR KKK -->
+      <section id="tab-transaction" class="tab-content">
+        <div class="transaction-container">
+          
+          <div class="form-card card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-scale-balanced text-green"></i> Form Penimbangan & Hitung KKK</h3>
+              <p>Masukkan data timbangan dan hasil pengujian kadar karet kering</p>
+            </div>
+
+            <form id="form-timbang" onsubmit="return false;">
+              
+              <div class="form-group">
+                <label for="input-petani"><i class="fa-solid fa-user"></i> Pilih Petani / Pemasok *</label>
+                <div class="input-with-action">
+                  <select id="input-petani" required>
+                    <option value="">-- Pilih Petani --</option>
+                  </select>
+                  <button type="button" class="btn btn-secondary" id="btn-modal-add-petani" title="Tambah Petani Baru">
+                    <i class="fa-solid fa-user-plus"></i>
+                  </button>
+                </div>
+                <small class="kasbon-info" id="farmer-kasbon-preview">Kasbon Petani: Rp 0</small>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="input-jenis"><i class="fa-solid fa-box"></i> Jenis Karet *</label>
+                  <select id="input-jenis" required>
+                    <option value="Bokar Cup Lump">Bokar Cup Lump (Bekuan)</option>
+                    <option value="Lateks Cair">Lateks Cair</option>
+                    <option value="Slab / Balok">Slab / Balok Karet</option>
+                    <option value="Sheet Kering">Sheet (Lembaran)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="input-harga-kering"><i class="fa-solid fa-tag"></i> Harga Karet Kering / kg *</label>
+                  <div class="input-unit input-prefix-unit">
+                    <span class="unit-prefix">Rp</span>
+                    <input type="number" id="input-harga-kering" value="23000" min="1000" step="500" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="input-berat-basah"><i class="fa-solid fa-weight-scale"></i> Berat Basah Timbangan *</label>
+                  <div class="input-unit input-suffix-unit">
+                    <input type="number" id="input-berat-basah" placeholder="Contoh: 150" min="0.5" step="0.1" required>
+                    <span class="unit-suffix">kg</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="input-berat-kering"><i class="fa-solid fa-cubes"></i> Berat Kering Hasil Uji / Sample *</label>
+                  <div class="input-unit input-suffix-unit">
+                    <input type="number" id="input-berat-kering" placeholder="Contoh: 82.5" min="0.1" step="0.1" required>
+                    <span class="unit-suffix">kg</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="input-kkk-percent"><i class="fa-solid fa-percent"></i> Hasil Persentase KKK (DRC Kalkulasi) *</label>
+                <div class="input-unit input-suffix-unit">
+                  <input type="number" id="input-kkk-percent" placeholder="Otomatis dihitung (Berat Kering ÷ Basah)" min="5" max="100" step="0.1" required>
+                  <span class="unit-suffix">%</span>
+                </div>
+                <small class="text-muted"><i class="fa-solid fa-circle-info"></i> Otomatis terhitung dari (Berat Kering ÷ Berat Basah). Anda juga dapat merubah persentase secara langsung.</small>
+              </div>
+
+              <div class="kkk-meter-wrapper">
+                <div class="meter-label">
+                  <span>Indikator Kualitas KKK:</span>
+                  <strong id="kkk-quality-label">-</strong>
+                </div>
+                <div class="meter-bar">
+                  <div class="meter-fill" id="kkk-meter-fill" style="width: 0%;"></div>
+                </div>
+                <div class="meter-ticks">
+                  <span>10% (Basah)</span>
+                  <span>45% (Standar)</span>
+                  <span>65%+ (Super)</span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="input-potong-kasbon"><i class="fa-solid fa-hand-holding-dollar"></i> Potongan Kasbon / Bon (Rp)</label>
+                  <div class="input-unit input-prefix-unit">
+                    <span class="unit-prefix">Rp</span>
+                    <input type="number" id="input-potong-kasbon" value="0" min="0" step="5000">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="input-potong-air"><i class="fa-solid fa-filter"></i> Potongan Kotoran / Sampah</label>
+                  <div class="input-unit input-suffix-unit">
+                    <input type="number" id="input-potong-air" value="0" min="0" step="0.5">
+                    <span class="unit-suffix">kg</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="input-catatan"><i class="fa-regular fa-comment-dots"></i> Catatan Tambahan</label>
+                <input type="text" id="input-catatan" placeholder="Contoh: Karet bersih, potongan 1.5%">
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="btn-reset-form">
+                  <i class="fa-solid fa-rotate-left"></i> Reset
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg" id="btn-submit-transaksi">
+                  <i class="fa-solid fa-floppy-disk"></i> Simpan Transaksi & Cetak
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          <div class="result-card card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-calculator text-green"></i> Hasil Perhitungan KKK</h3>
+              <span class="badge-live">Live Calculation</span>
+            </div>
+
+            <div class="calc-breakdown">
+              
+              <div class="calc-row highlight-green">
+                <div class="calc-label">
+                  <i class="fa-solid fa-cubes"></i> Berat Karet Kering (KKK)
+                  <small>Berat Basah × (% KKK / 100)</small>
+                </div>
+                <div class="calc-value" id="res-berat-kering">0.0 kg</div>
+              </div>
+
+              <div class="calc-row">
+                <div class="calc-label">
+                  <i class="fa-solid fa-money-bill"></i> Subtotal Pembayaran
+                  <small>Berat Kering × Harga/kg</small>
+                </div>
+                <div class="calc-value" id="res-subtotal">Rp 0</div>
+              </div>
+
+              <div class="calc-row text-red">
+                <div class="calc-label">
+                  <i class="fa-solid fa-minus-circle"></i> Potongan Kasbon
+                </div>
+                <div class="calc-value" id="res-potongan-kasbon">- Rp 0</div>
+              </div>
+
+              <div class="calc-row text-red">
+                <div class="calc-label">
+                  <i class="fa-solid fa-minus-circle"></i> Potongan Kotoran
+                </div>
+                <div class="calc-value" id="res-potongan-kotoran">- 0 kg</div>
+              </div>
+
+              <div class="calc-divider"></div>
+
+              <div class="calc-row highlight-grand">
+                <div class="calc-label">
+                  <strong>TOTAL UANG DITERIMA PETANI</strong>
+                  <small>Bersih dibayarkan oleh Tokeh</small>
+                </div>
+                <div class="calc-value grand-total" id="res-grand-total">Rp 0</div>
+              </div>
+
+            </div>
+
+            <div class="thermal-receipt-container">
+              <div class="receipt-header">
+                <h4>PRATINJAU STRUK THERMAL 58MM</h4>
+                <p>Hasil cetak nota penimbangan langsung ke printer</p>
+              </div>
+              
+              <div class="receipt-paper" id="receipt-preview-paper">
+                <div class="r-store" id="r-store-name">TOKEH KARET H. RAMLI</div>
+                <div class="r-address" id="r-store-address">Jl. Lintas Sumatera Km 12, Kebun Karet</div>
+                <div class="r-divider">--------------------------------</div>
+                <div class="r-title">NOTA PENIMBANGAN BOKAR</div>
+                <div class="r-divider">--------------------------------</div>
+                <div class="r-line"><span>No. Nota:</span> <strong id="r-no">#TRX-0000</strong></div>
+                <div class="r-line"><span>Tanggal:</span> <span id="r-date">-</span></div>
+                <div class="r-line"><span>Petani:</span> <strong id="r-petani">-</strong></div>
+                <div class="r-line"><span>Jenis:</span> <span id="r-jenis">-</span></div>
+                <div class="r-divider">--------------------------------</div>
+                <div class="r-line"><span>Berat Basah:</span> <strong id="r-basah">0 kg</strong></div>
+                <div class="r-line"><span>Kadar KKK:</span> <strong id="r-kkk">0 %</strong></div>
+                <div class="r-line"><span>Berat Kering:</span> <strong id="r-kering">0 kg</strong></div>
+                <div class="r-line"><span>Harga Kering/kg:</span> <span id="r-harga">Rp 0</span></div>
+                <div class="r-divider">--------------------------------</div>
+                <div class="r-line"><span>Subtotal:</span> <span id="r-subtotal">Rp 0</span></div>
+                <div class="r-line"><span>Pot. Kasbon:</span> <span id="r-potbon">Rp 0</span></div>
+                <div class="r-divider">================================</div>
+                <div class="r-line r-bold"><span>TOTAL BAYAR:</span> <strong id="r-total">Rp 0</strong></div>
+                <div class="r-divider">================================</div>
+                <div class="r-footer">Terima Kasih Atas Kerjasamanya!<br>Karet Bersih, Hasil Melimpah.<br><small style="font-size: 9px; margin-top: 4px; display: block;">by PT Sanak Projek. Tbk</small></div>
+              </div>
+
+              <div class="receipt-actions">
+                <button class="btn btn-outline" id="btn-print-sim">
+                  <i class="fa-solid fa-print"></i> Cetak Struk Nota
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB 3: DATA PETANI & KASBON -->
+      <section id="tab-farmers" class="tab-content">
+        <div class="tab-header-flex">
+          <div>
+            <h3>Data Petani Karet & Catatan Kasbon</h3>
+            <p>Kelola profil petani penyuplai, riwayat setoran (kg), alamat, no HP, dan kasbon</p>
+          </div>
+          <button class="btn btn-primary" id="btn-add-farmer-main">
+            <i class="fa-solid fa-user-plus"></i> Tambah Petani Baru
+          </button>
+        </div>
+
+        <div class="farmers-grid" id="farmers-cards-list">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- TAB 4: RIWAYAT TRANSAKSI -->
+      <section id="tab-history" class="tab-content">
+        
+        <div class="filter-toolbar card margin-bottom">
+          <div class="toolbar-header-flex">
+            <div class="toolbar-title">
+              <i class="fa-solid fa-sliders text-green"></i>
+              <span>Filter & Cetak Riwayat Penimbangan</span>
+            </div>
+            <button class="btn btn-outline" id="btn-print-all-transactions">
+              <i class="fa-solid fa-print"></i> Cetak Semua Transaksi
+            </button>
+          </div>
+
+          <div class="filter-inputs">
+            <div class="filter-item">
+              <label><i class="fa-solid fa-user"></i> Filter Petani:</label>
+              <select id="filter-hist-petani">
+                <option value="ALL">Semua Petani</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label><i class="fa-solid fa-percent"></i> Filter KKK:</label>
+              <select id="filter-hist-kkk">
+                <option value="ALL">Semua KKK</option>
+                <option value="SUPER">Super (>60%)</option>
+                <option value="STANDAR">Standar (45-60%)</option>
+                <option value="BASAH">Basah (<45%)</option>
+              </select>
+            </div>
+
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="search-history" placeholder="Cari nama / no nota...">
+            </div>
+          </div>
+        </div>
+
+        <div class="table-card card">
+          <table class="data-table" id="table-transactions-all">
+            <thead>
+              <tr>
+                <th>No. Nota / Waktu</th>
+                <th>Nama Petani</th>
+                <th>Jenis Karet</th>
+                <th>Berat Basah</th>
+                <th>% KKK</th>
+                <th>Berat Kering</th>
+                <th>Harga Kering/kg</th>
+                <th>Total Bayar</th>
+                <th class="no-print">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="history-table-body">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL: ATUR HARGA PER JENIS KARET -->
+  <div class="modal-overlay" id="modal-price-matrix">
+    <div class="modal-box card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-tags text-amber"></i> Atur Harga Harian per Jenis Karet</h3>
+        <button class="close-modal" id="btn-close-modal-prices">&times;</button>
+      </div>
+      <form id="form-price-matrix" onsubmit="return false;">
+        <div class="form-group">
+          <label for="p-cup">Bokar Cup Lump (Bekuan) - Rp/kg *</label>
+          <input type="number" id="p-cup" value="23000" step="500" required>
+        </div>
+        <div class="form-group">
+          <label for="p-lateks">Lateks Cair - Rp/kg *</label>
+          <input type="number" id="p-lateks" value="18000" step="500" required>
+        </div>
+        <div class="form-group">
+          <label for="p-slab">Slab / Balok Karet - Rp/kg *</label>
+          <input type="number" id="p-slab" value="21000" step="500" required>
+        </div>
+        <div class="form-group">
+          <label for="p-sheet">Sheet (Lembaran) Kering - Rp/kg *</label>
+          <input type="number" id="p-sheet" value="26000" step="500" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-modal-prices">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Harga Harian</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL POPUP NOTIFIKASI TERSIMPAN -->
+  <div class="modal-overlay" id="modal-notif-success">
+    <div class="modal-box card modal-box-sm text-center">
+      <div class="notif-icon-large text-green">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 class="notif-title">Data Sudah Tersimpan!</h3>
+      <p class="notif-desc" id="notif-success-message">Transaksi timbangan berhasil dicatat ke sistem dan siap dicetak.</p>
+      <div class="modal-footer flex-center margin-top">
+        <button class="btn btn-primary btn-lg min-w-120" id="btn-close-notif-success">OK, Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDIT PROFIL TOKEH -->
+  <div class="modal-overlay" id="modal-edit-profile">
+    <div class="modal-box card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-user-gear text-green"></i> Edit Profil Tokeh</h3>
+        <button class="close-modal" id="btn-close-modal-profile">&times;</button>
+      </div>
+      <form id="form-edit-profile" onsubmit="return false;">
+        <div class="form-group">
+          <label for="prof-fullname">Nama Lengkap Tokeh *</label>
+          <input type="text" id="prof-fullname" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prof-email">Email Terdaftar *</label>
+            <input type="email" id="prof-email" required>
+          </div>
+          <div class="form-group">
+            <label for="prof-phone">Nomor HP / WhatsApp *</label>
+            <input type="tel" id="prof-phone" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="prof-resaddress">Alamat Tempat Tinggal *</label>
+          <input type="text" id="prof-resaddress" required>
+        </div>
+        <div class="form-group">
+          <label for="prof-storeaddress">Alamat Usaha / Gudang *</label>
+          <input type="text" id="prof-storeaddress" required>
+        </div>
+        <div class="modal-footer-between margin-top">
+          <button type="button" class="btn btn-danger-light" id="btn-open-change-password">
+            <i class="fa-solid fa-key"></i> Ubah Password via Email
+          </button>
+          <div class="modal-footer-group">
+            <button type="button" class="btn btn-secondary" id="btn-cancel-modal-profile">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan Profil</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL UBAH PASSWORD VIA EMAIL OTP -->
+  <div class="modal-overlay" id="modal-change-password">
+    <div class="modal-box card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-shield-halved text-amber"></i> Ubah Password & Konfirmasi Email</h3>
+        <button class="close-modal" id="btn-close-modal-changepw">&times;</button>
+      </div>
+      <form id="form-change-password" onsubmit="return false;">
+        <div class="form-group">
+          <label for="pw-email-display">Email Konfirmasi:</label>
+          <input type="email" id="pw-email-display" readonly class="input-readonly">
+        </div>
+        <div class="form-group">
+          <label for="pw-old">Password Lama *</label>
+          <input type="password" id="pw-old" placeholder="Masukkan password saat ini" required>
+        </div>
+        <div class="form-group">
+          <label for="pw-new">Password Baru *</label>
+          <input type="password" id="pw-new" placeholder="Masukkan password baru" required>
+        </div>
+        
+        <div class="otp-request-box card margin-bottom">
+          <div class="otp-info">
+            <i class="fa-solid fa-envelope-circle-check text-green"></i>
+            <span>Verifikasi Email 6-Digit OTP</span>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-send-otp">
+            Kirim Kode OTP ke Email
+          </button>
+        </div>
+
+        <div class="form-group hidden" id="otp-input-group">
+          <label for="pw-otp">Masukkan Kode OTP (6 Digit) *</label>
+          <input type="text" id="pw-otp" maxlength="6" placeholder="Contoh: 849201" class="otp-input">
+          <small class="text-muted">Petunjuk Simulasi: Kode OTP dikirim ke email terdaftar.</small>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-modal-changepw">Batal</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit-pw-change" disabled>Verifikasi & Ubah Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL TAMBAH / EDIT PETANI -->
+  <div class="modal-overlay" id="modal-petani">
+    <div class="modal-box card">
+      <div class="modal-header">
+        <h3 id="modal-petani-title"><i class="fa-solid fa-user-plus text-green"></i> Tambah Data Petani Baru</h3>
+        <button class="close-modal" id="btn-close-modal-petani">&times;</button>
+      </div>
+      <form id="form-add-petani" onsubmit="return false;">
+        <input type="hidden" id="m-petani-id" value="">
+        <div class="form-group">
+          <label for="m-nama-petani">Nama Lengkap Petani *</label>
+          <input type="text" id="m-nama-petani" placeholder="Contoh: Pak Herman" required>
+        </div>
+        <div class="form-group">
+          <label for="m-hp-petani">Nomor WhatsApp / HP *</label>
+          <input type="tel" id="m-hp-petani" placeholder="Contoh: 081234567890" required>
+        </div>
+        <div class="form-group">
+          <label for="m-lokasi-kebun">Alamat Kebun / Desa *</label>
+          <input type="text" id="m-lokasi-kebun" placeholder="Contoh: Desa Sungai Lilin, Blok B" required>
+        </div>
+        <div class="form-group">
+          <label for="m-kasbon-awal">Saldo Kasbon (Rp)</label>
+          <input type="number" id="m-kasbon-awal" value="0" step="50000">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-modal-petani">Batal</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-petani">Simpan Data Petani</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL EDIT TRANSAKSI -->
+  <div class="modal-overlay" id="modal-edit-transaksi">
+    <div class="modal-box card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-pen-to-square text-green"></i> Edit Transaksi Penimbangan</h3>
+        <button class="close-modal" id="btn-close-modal-edit-trx">&times;</button>
+      </div>
+      <form id="form-edit-transaksi" onsubmit="return false;">
+        <input type="hidden" id="edit-trx-id">
+        <div class="form-group">
+          <label for="edit-trx-petani">Petani / Pemasok</label>
+          <select id="edit-trx-petani" required></select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-trx-jenis">Jenis Karet</label>
+            <select id="edit-trx-jenis" required>
+              <option value="Bokar Cup Lump">Bokar Cup Lump (Bekuan)</option>
+              <option value="Lateks Cair">Lateks Cair</option>
+              <option value="Slab / Balok">Slab / Balok Karet</option>
+              <option value="Sheet Kering">Sheet (Lembaran)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-trx-harga">Harga Kering/kg (Rp)</label>
+            <input type="number" id="edit-trx-harga" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-trx-basah">Berat Basah (kg)</label>
+            <input type="number" id="edit-trx-basah" step="0.1" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-trx-kkk">% KKK (DRC)</label>
+            <input type="number" id="edit-trx-kkk" step="0.5" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="edit-trx-potbon">Potongan Kasbon (Rp)</label>
+          <input type="number" id="edit-trx-potbon" value="0">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-modal-edit-trx">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Perubahan Transaksi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL TUTORIAL INTERAKTIF (ONBOARDING TOUR) -->
+  <div class="modal-overlay" id="modal-onboarding-tutorial">
+    <div class="modal-box card tutorial-modal">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-graduation-cap text-green"></i> Panduan Singkat TokehKaret PRO</h3>
+        <button class="close-modal" id="btn-close-tutorial">&times;</button>
+      </div>
+      <div class="tutorial-content">
+        <div class="tutorial-slide active" data-slide="1">
+          <div class="tutorial-icon-badge"><i class="fa-solid fa-compass text-green"></i></div>
+          <h4>1. Navigasi & Menu Utama</h4>
+          <p>Gunakan <b>Sidebar Navigasi</b> di sebelah kiri untuk berpindah menu:</p>
+          <ul>
+            <li><b>Dashboard</b>: Ringkasan grafik tonase & persentase KKK.</li>
+            <li><b>Timbang & Hitung KKK</b>: Pencatatan penimbangan & kalkulator DRC.</li>
+            <li><b>Data Petani</b>: Kelola daftar penyuplai & sisa kasbon.</li>
+            <li><b>Riwayat</b>: Struk penimbangan & ekspor bulanan.</li>
+          </ul>
+        </div>
+
+        <div class="tutorial-slide" data-slide="2">
+          <div class="tutorial-icon-badge"><i class="fa-solid fa-tags text-amber"></i></div>
+          <h4>2. Setting Harga Karet Harian</h4>
+          <p>Tokeh dapat mengatur harga harian secara fleksibel untuk setiap jenis karet:</p>
+          <ul>
+            <li><b>Bokar Cup Lump</b> (Bekuan mangkok)</li>
+            <li><b>Lateks Cair</b> (Susu karet)</li>
+            <li><b>Slab / Balok</b> (Bokar cetak)</li>
+            <li><b>Sheet Kering</b> (Lembaran)</li>
+          </ul>
+          <small class="text-muted">Klik tombol <b>"Atur Harga Jenis Karet"</b> di header atas kapan saja.</small>
+        </div>
+
+        <div class="tutorial-slide" data-slide="3">
+          <div class="tutorial-icon-badge"><i class="fa-solid fa-scale-balanced text-green"></i></div>
+          <h4>3. Kalkulator Hitung KKK (DRC)</h4>
+          <p>Masukkan <b>Berat Basah (kg)</b> dan <b>Berat Kering (kg)</b> hasil sampel/oven:</p>
+          <ul>
+            <li>Persentase <b>KKK (%)</b> dihitung otomatis secara langsung!</li>
+            <li>Status Kualitas KKK (Super, Standar, Basah) langsung terlihat pada meteran indikator.</li>
+            <li>Potongan kasbon petani otomatis mengurai sisa saldo pinjaman.</li>
+          </ul>
+        </div>
+
+        <div class="tutorial-slide" data-slide="4">
+          <div class="tutorial-icon-badge"><i class="fa-solid fa-print text-green"></i></div>
+          <h4>4. Cetak Struk & Laporan</h4>
+          <p>Setiap transaksi penimbangan dapat:</p>
+          <ul>
+            <li><b>Dicetak</b> langsung ke printer thermal (Struk Nota Penimbangan).</li>
+            <li><b>Diekspor</b> sebagai daftar ringkasan bulanan petani.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tutorial-footer">
+        <div class="tutorial-dots">
+          <span class="dot active" data-dot="1"></span>
+          <span class="dot" data-dot="2"></span>
+          <span class="dot" data-dot="3"></span>
+          <span class="dot" data-dot="4"></span>
+        </div>
+        <div class="tutorial-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-prev-tutorial" style="display:none;">Kembali</button>
+          <button class="btn btn-primary btn-sm" id="btn-next-tutorial">Lanjut <i class="fa-solid fa-arrow-right"></i></button>
+          <button class="btn btn-success btn-sm" id="btn-finish-tutorial" style="display:none;">Mulai Gunakan Aplikasi <i class="fa-solid fa-check"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Custom App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
